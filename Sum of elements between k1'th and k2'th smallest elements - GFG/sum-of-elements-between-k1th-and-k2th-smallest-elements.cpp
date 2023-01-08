@@ -14,6 +14,7 @@ class Solution{
             maxH.push(A[i]);
             if(maxH.size()>K2) maxH.pop();
         }
+        
         maxH.pop();
         long long ans=0;
         while(maxH.size()>K1){
