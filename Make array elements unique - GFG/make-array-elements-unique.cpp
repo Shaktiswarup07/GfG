@@ -12,18 +12,21 @@ class Solution {
     long long int minIncrements(vector<int> arr, int N) {
         // Code here
         sort(arr.begin(),arr.end());
-        map<int,int>mp;
+        unordered_map<int,int>mp;
         long long cnt=0;
-        for(int i=0;i<arr.size();i++){
-            while(mp.find(arr[i])!=mp.end()){
-                arr[i]++;
-                // mp[arr[i]]++;
-                cnt++;
+        
+        int maxi=arr[0];
+        mp[arr[0]]++;
+        
+        for(int i=1;i<arr.size();i++){
+            if(mp[arr[i]]>0){
+               cnt+=(maxi+1-arr[i]);
+                arr[i]=maxi+1;
+                mp[arr[i]]++;
             }
-            mp[arr[i]]++;
-            // else{
-            //     mp[arr[i]]++;
-            // }
+            else  mp[arr[i]]++;
+
+            maxi=max(maxi,arr[i]);
         }
         return cnt;
     }
