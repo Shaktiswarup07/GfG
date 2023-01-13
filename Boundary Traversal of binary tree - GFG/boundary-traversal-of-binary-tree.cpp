@@ -139,30 +139,32 @@ public:
     {
         vector<int>ans;
         //Your code here
-        vector<int>leftB;
+        // vector<int>leftB;
         if(root->left){
-            leftBoundary(root,leftB);
-            for(int i=0;i<leftB.size();i++){
-                ans.push_back(leftB[i]);
-            }
+            leftBoundary(root,ans);
+            // for(int i=0;i<leftB.size();i++){
+            //     ans.push_back(leftB[i]);
+            // }
         }
         else ans.push_back(root->data);
         
-        vector<int>leafB;
+        // vector<int>leafB;
         if(root->left || root->right){
-            downBoundary(root,leafB);
-            for(int i=0;i<leafB.size();i++){
-                ans.push_back(leafB[i]);
-            }
+            downBoundary(root,ans);
+            // for(int i=0;i<leafB.size();i++){
+            //     ans.push_back(leafB[i]);
+            // }
         }
+        int p=ans.size();
         
-        vector<int>rightB;
+        // vector<int>rightB;
         if(root->right){
-            rightBoundary(root->right,rightB);
+            rightBoundary(root->right,ans);
+            reverse(ans.begin()+p,ans.end());
             // reverse(rightB.begin(),rightB.end());
-            for(int i=rightB.size()-1;i>=0;i--){
-                ans.push_back(rightB[i]);
-            }
+            // for(int i=rightB.size()-1;i>=0;i--){
+            //     ans.push_back(rightB[i]);
+            // }
         }
         
         
