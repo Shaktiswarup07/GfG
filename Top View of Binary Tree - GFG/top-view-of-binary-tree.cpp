@@ -105,7 +105,7 @@ class Solution
     
     vector<int> topView(Node *root)
     {
-        map<int,int>mp;
+        map<int,Node*>mp;
         //  V    
         queue<pair<Node*,int>>q;
         //                V
@@ -116,7 +116,7 @@ class Solution
             q.pop();
             Node *t=temp.first;
             int vl=temp.second;
-            if(mp.find(vl)==mp.end()) mp[vl]=t->data;
+            if(mp.find(vl)==mp.end()) mp[vl]=t;
             if(t->left){
                 q.push({t->left,vl-1});
             }
@@ -125,7 +125,7 @@ class Solution
             }
         }
         for(auto i:mp){
-            v.push_back(i.second);
+            v.push_back(i.second->data);
         }
         return v;
     }
