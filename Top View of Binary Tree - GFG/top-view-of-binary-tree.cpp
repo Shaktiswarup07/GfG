@@ -105,40 +105,29 @@ class Solution
     
     vector<int> topView(Node *root)
     {
-        //Your code here
-         map<int,map<int,multiset<int>>>mp;
-        //  V       L            NODES
-        queue<pair<Node*,pair<int,int>>>q;
-        //         Node           HOR  LEV
-        q.push({root,{0,0}});
+        map<int,int>mp;
+        //  V    
+        queue<pair<Node*,int>>q;
+        //                V
+        q.push({root,0});
+        vector<int>v;
         while(!q.empty()){
-            pair<Node*,pair<int,int>> temp=q.front();
+            pair<Node*,int> temp=q.front();
             q.pop();
-            Node *front=temp.first;
-            int hd=temp.second.first;
-            int lvl=temp.second.second;
-            mp[hd][lvl].insert(front->data);
-            if(front->left){
-                q.push({front->left,{hd-1,lvl+1}});
+            Node *t=temp.first;
+            int vl=temp.second;
+            if(mp.find(vl)==mp.end()) mp[vl]=t->data;
+            if(t->left){
+                q.push({t->left,vl-1});
             }
-            if(front->right){
-                q.push({front->right,{hd+1,lvl+1}});
+            if(t->right){
+                q.push({t->right,vl+1});
             }
         }
-        vector<vector<int>> ans;
         for(auto i:mp){
-            vector<int>v;
-            for(auto j:i.second){
-                for(auto k : j.second ) v.push_back(k);
-            }
-            ans.push_back(v);
+            v.push_back(i.second);
         }
-        vector<int>vv;
-        for(int i=0;i<ans.size();i++){
-            vv.push_back(ans[i][0]);
-        }
-        return vv;
-       
+        return v;
     }
 
 };
