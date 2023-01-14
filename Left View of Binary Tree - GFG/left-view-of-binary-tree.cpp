@@ -128,9 +128,17 @@ struct Node
  */
 
 //Function to return a list containing elements of left view of the binary tree.
+void FindLHV(Node *root,int level,vector<int>&ans){
+    if(root==NULL) return;
+    
+    if(ans.size()==level) ans.push_back(root->data);
+    FindLHV(root->left,level+1,ans);
+    FindLHV(root->right,level+1,ans);
+}
 vector<int> leftView(Node *root)
 {
     if(root==NULL) return {};
+    /*if(root==NULL) return {};
     // Your code here
    queue<Node*>q;
    q.push(root);
@@ -144,8 +152,11 @@ vector<int> leftView(Node *root)
            if(t->right) q.push(t->right);
            if(t->left) q.push(t->left);
            if(i==sz-1) v.push_back(t->data);
-       }
-       
+       }    
    }
-   return v;
+   return v;*/
+   //RECURSIVE
+   vector<int>ans;
+   FindLHV(root,0,ans);
+   return ans;
 }
