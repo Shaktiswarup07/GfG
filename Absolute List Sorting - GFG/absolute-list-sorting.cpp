@@ -48,7 +48,6 @@ class Solution{
 public:
     Node* sortList(Node* head)
     {
-        if(head->next==NULL) return head;
         // Your Code Here
         Node *posNode=new Node;
         Node *p=posNode;
@@ -73,13 +72,14 @@ public:
             head=head->next;
         }
         if(negNode->next==NULL) return posNode->next;
-        // if(posNode->next==NULL) 
+        
         // return posNode; 0 1 4
         // return negNode; 0 -2 -3 -5
         // we need -5 -3 -2 1 4
+        
         posNode=posNode->next;
         negNode=negNode->next;
-        // we need to swap neg Node
+        // we need to reverse neg Node
         Node *m=negNode;
         Node *k=NULL;
         Node *j;
