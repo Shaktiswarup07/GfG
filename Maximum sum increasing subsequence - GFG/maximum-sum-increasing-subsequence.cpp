@@ -12,17 +12,17 @@ class Solution{
 	    // Your code goes here
 	   // int dp[n];
 	    vector<int>dp(n);
-	    int sum[n];
+	   // int sum[n];
 	    dp[0]=arr[0];
-	    sum[0]=arr[0];
+	   // sum[0]=arr[0];
 	    for(int i = 1 ; i < n ; i++){
 	        int maxi=0;
 	        for(int j = 0 ; j < i ; j++){
 	            if(arr[i]>arr[j]){
-	                maxi=max(maxi,sum[j]);
+	                maxi=max(maxi,dp[j]);
 	            }
 	            dp[i]=arr[i]+maxi;
-	            sum[i]=arr[i]+maxi;
+	           // sum[i]=arr[i]+maxi;
 	        }
 	    }
 	    return *max_element(dp.begin(),dp.end());
