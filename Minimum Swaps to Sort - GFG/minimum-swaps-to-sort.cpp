@@ -12,6 +12,7 @@ class Solution
 	int minSwaps(vector<int>&nums)
 	{
 	    // Code here
+	    int n=nums.size();
 	    vector<int>arr=nums;
 	    sort(arr.begin(),arr.end());
 	    map<int,int>mp;
@@ -21,8 +22,7 @@ class Solution
 	    int cnt=0;
 	    int j=0;
 	    while(true){
-	       // if(is_sorted(nums.begin(),nums.end())) break;
-	       if(j==nums.size()) break;
+	       if(j==n) break;
 	        if(mp[nums[j]]==j){j++; continue;}
 	        else{
 	            swap(nums[j],nums[mp[nums[j]]]);
