@@ -23,12 +23,8 @@ public:
         else{
             int mini=INT_MAX;
             for(auto i:mp){
-                if(i.first=='l' || i.first=='o') continue;
-                mini=min(mini,i.second);
-            }
-            for(auto i:mp){
-                if(i.first=='l' || i.first=='o') 
-                mini=min(mini,i.second/2);
+                if(i.first=='l' || i.first=='o') {mini=min(mini,i.second/2);}
+               else mini=min(mini,i.second);
             }
             return mini;
         }
