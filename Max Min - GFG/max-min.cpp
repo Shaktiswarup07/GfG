@@ -13,6 +13,7 @@ class Solution
    int maxi=INT_MIN,mini=INT_MAX;
    void MaxMin(int a[], int n,int l,int r){
        if(r==l){
+        //   cout<<a[r]<<" ";
            maxi=max(maxi,a[r]);
            mini=min(mini,a[r]);
            return;
