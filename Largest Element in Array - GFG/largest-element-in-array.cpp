@@ -10,19 +10,22 @@ using namespace std;
 class Solution
 {
 public:
-    int Solve(vector<int>arr,int l,int r){
-        if(l==r){
-            return l;
+    int findMax(vector<int>arr,int s,int e){
+        if(s==e){
+            return arr[s];
         }
-        int mid=l+(r-l)/2;
-        int idx1=Solve(arr,l,mid);
-        int idx2=Solve(arr,mid+1,r);
-        return arr[idx1]>arr[idx2]?idx1:idx2;
+        else{
+            int mid=s+(e-s)/2;
+            int x=findMax(arr,s,mid);
+            int y=findMax(arr,mid+1,e);
+            return max(x,y);
+            
+        }
     }
     int largest(vector<int> &arr, int n)
     {
-        int idx=Solve(arr,0,n-1);
-        return arr[idx];
+        int s=0,e=n-1;
+        return findMax(arr,s,e);
     }
 };
 
