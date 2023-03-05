@@ -12,27 +12,21 @@ class Solution{
 public:
     vector<int> optimalArray(int n,vector<int> &a){
     //     // Code here
-    //     vector<int>an(n);
-    //     for(int i=n-1;i>=0;i--){
-    //         int x=a[i];
-    //         int y=a[i/2];
-            
-            
-    //     }
-    //     vector<int>med(n);
-        // for(int i=0;i<n;i++){
-        //     med[i]=a[(i/2)];
-        // }
         int ans=0;
-        for(int i=0;i<n;i++){
-            ans+=abs(a[i]-a[(n-1)/2]);
-        }
+        // for(int i=0;i<n;i++){
+        //     ans+=abs(a[i]-a[(n-1)/2]);
+        // }
         vector<int>an(n);
-        an[n-1]=ans;
-        for(int i=n-2;i>=0;i--){
-            an[i]=ans-abs(a[i+1]-a[(i+1)/2]);
+        // an[n-1]=ans;
+        an[0]=0;
+        for(int i=1;i<n;i++){
+            an[i]=ans+abs(a[i]-a[i/2]);
             ans=an[i];
         }
+        // for(int i=n-2;i>=0;i--){
+        //     an[i]=ans-abs(a[i+1]-a[(i+1)/2]);
+        //     ans=an[i];
+        // }
         return an;
     }
 };
