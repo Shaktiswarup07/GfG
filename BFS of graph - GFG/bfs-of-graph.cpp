@@ -8,22 +8,25 @@ class Solution {
     // Function to return Breadth First Traversal of given graph.
     vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         // Code here
-        vector<bool>visited(V+1);
-        for(int i=0;i<V+1;i++)visited[i]=0;
-        queue<int>q;
-        q.push(0);
-        vector<int>v;
-        while(!q.empty()){
-            int z=q.front();
-            q.pop();
-            if(visited[z]==0)
-            v.push_back(z);
-            visited[z]=1;
-            for(auto x:adj[z]){
-                if(visited[x]==0) q.push(x);
-            }
-        }
-        return v;
+       vector<int>bfs;
+       queue<int>q;
+       q.push(0);
+       vector<bool>visited(V);
+       visited[0]=1;
+       while(!q.empty()){
+           int x=q.front();
+           bfs.push_back(x);
+           q.pop();
+           for(int i=0;i<adj[x].size();i++){
+               if(!visited[adj[x][i]]){
+                   q.push(adj[x][i]);
+                   visited[adj[x][i]]=1;
+               }
+               
+           }
+           
+       }
+       return bfs;
     }
 };
 
