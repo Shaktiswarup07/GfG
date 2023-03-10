@@ -13,44 +13,35 @@ class Solution {
     long long maxTripletProduct(long long arr[], int n)
     {
     	// Complete the function
-    if(n==3){
-        return arr[0]*arr[1]*arr[2];
-    }
-    else{
-        bool f=0;
-        for(int i = 0 ; i < n ; i++){
-            if(arr[i]==0){
-                f=1;
-            }
-            if(i<n-1 && f==1){
-                arr[i]=arr[i+1];
-            }
-        }
-        if(f){
-            arr[n-1]=0;
-            sort(arr,arr+n-1);
-        }else{
-            sort(arr,arr+n);
-        }
-        // sort();
-        if(f){
-          long long p=arr[0]*arr[1]*arr[n-2];
-          long long q=arr[n-2]*arr[n-3]*arr[n-4];
-          long long h=max(p,q);
-          if(h<0) return 0;
-          else return h;
+        if(n==3){
+            return arr[0]*arr[1]*arr[2];
         }
         else{
-            long long p=arr[0]*arr[1]*arr[n-1];
-          long long q=arr[n-1]*arr[n-2]*arr[n-3];
-          long long h=max(p,q);
-          return h;
+            long long int min1=LLONG_MAX,min2=LLONG_MAX;
+            long long int max1=LLONG_MIN,max2=LLONG_MIN,max3=LLONG_MIN;
+            for(int i=0;i<n;i++){
+                if(arr[i]<min1){
+                    min2=min1;
+                    min1=arr[i];
+                }
+                else if(arr[i]<min2){
+                    min2=arr[i];
+                }
+                if(arr[i]>max1){
+                    max3=max2;
+                    max2=max1;
+                    max1=arr[i];
+                }
+                else if(arr[i]>max2){
+                    max3=max2;
+                    max2=arr[i];
+                }
+                else if(arr[i]>max3){
+                    max3=arr[i];
+                }
+            }
+            return max(min1*min2*max1,max1*max2*max3);
         }
-        
-    }
-    	
-    	
-    	
     }
 };
 
