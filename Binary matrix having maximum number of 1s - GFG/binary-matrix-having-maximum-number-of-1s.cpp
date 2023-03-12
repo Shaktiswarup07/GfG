@@ -12,32 +12,49 @@ using namespace std;
 class Solution {
 public:
     vector<int> findMaxRow(vector<vector<int>> mat, int N) {
-        int maxRow=0,maxOnes=0;
-        int maxi=INT_MIN;
-        int n=N;
-        for(int i = 0 ; i < N ; i++){
-            int ones=0;
-            int s=0,e=n-1;
-            int ans=-1;
-            while(s<=e){
-                int mid=s+(e-s)/2;
-                if(mat[i][mid]==1){
-                    ans=mid;
-                    e=mid-1;
-                }
-                else{
-                    s=mid+1;
-                }
+        // int maxRow=0,maxOnes=0;
+        // int maxi=INT_MIN;
+        // int n=N;
+        // for(int i = 0 ; i < N ; i++){
+        //     int ones=0;
+        //     int s=0,e=n-1;
+        //     int ans=-1;
+        //     while(s<=e){
+        //         int mid=s+(e-s)/2;
+        //         if(mat[i][mid]==1){
+        //             ans=mid;
+        //             e=mid-1;
+        //         }
+        //         else{
+        //             s=mid+1;
+        //         }
+        //     }
+        //     if(ans>=0)
+        //     ones=n-ans;
+        //     if(ones>maxOnes){
+        //         maxRow=i;
+        //         maxOnes=ones;
+        //     }
+        // }
+        // return {maxRow,maxOnes};
+        int cnt=0;
+        int i=0,j=N-1;
+        int row=0;
+        while(i>=0 && i<N && j>=0 && j<N){
+            if(mat[i][j]==1){
+                row=i;
+                cnt++;
+                j--;
             }
-            if(ans>=0)
-            ones=n-ans;
-            if(ones>maxOnes){
-                maxRow=i;
-                maxOnes=ones;
+            else if(mat[i][j]==0){
+                i++;
+                // row++;
             }
         }
-        return {maxRow,maxOnes};
-        //code here
+        if(cnt>0)
+        return {row,cnt};
+        else return {0,0};
+        
     }
 };
 
