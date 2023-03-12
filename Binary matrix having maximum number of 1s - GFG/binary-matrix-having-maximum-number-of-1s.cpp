@@ -14,11 +14,23 @@ public:
     vector<int> findMaxRow(vector<vector<int>> mat, int N) {
         int maxRow=0,maxOnes=0;
         int maxi=INT_MIN;
+        int n=N;
         for(int i = 0 ; i < N ; i++){
             int ones=0;
-            for(int j = 0 ; j < N ; j++){
-                ones+=mat[i][j];
+            int s=0,e=n-1;
+            int ans=-1;
+            while(s<=e){
+                int mid=s+(e-s)/2;
+                if(mat[i][mid]==1){
+                    ans=mid;
+                    e=mid-1;
+                }
+                else{
+                    s=mid+1;
+                }
             }
+            if(ans>=0)
+            ones=n-ans;
             if(ones>maxOnes){
                 maxRow=i;
                 maxOnes=ones;
