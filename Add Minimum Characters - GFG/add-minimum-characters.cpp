@@ -9,24 +9,12 @@ using namespace std;
 
 class Solution{   
 public:
-    bool isPal(int i,string str){
-        int j=0;
-        while(j<=i){
-            if(str[i]!=str[j]) return false;
-            else{
-                j++;i--;
-            }
-        }
-        return 1;
-    }
-    int addMinChar(string str){    
-        //code here
-        if(isPal(str.size()-1,str)) return 0;
+    int addMinChar(string str){
         int i=0,j=str.size()-1;
         while(i<j){
-            if(str[i]==str[j]){
-                i++;
-                j--;
+                if(str[i]==str[j]){
+                    i++;
+                    j--;
             }
             else {
                     if(str[0]==str[j] && str[i]!=str[j]){
@@ -37,11 +25,8 @@ public:
                     }
             }
         }
-        int p=i*2;
-        if(isPal(p,str)) return str.size()-p-1;
-        
-        i+=(i-1);
-        return str.size()-i-1;
+        if(i==j) return str.size()-i*2-1;
+        else return str.size()-i*2;
     }
 };
 
