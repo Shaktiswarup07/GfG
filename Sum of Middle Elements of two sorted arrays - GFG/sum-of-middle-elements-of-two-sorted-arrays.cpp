@@ -12,14 +12,34 @@ class Solution {
 public:
     int findMidSum(int ar1[], int ar2[], int n) {
             // code here 
-            int i=n-1,j=0;
-            while(i>=0 && ar1[i]>ar2[j]){
-                swap(ar1[i],ar2[j]);
-                i--;j++;
+            int ans=0;
+            int i = 0 , j = 0;
+            int k=0;
+            int p=0;
+            while(i< n && j < n){
+                if(ar1[i]<ar2[j]){
+                    p=ar1[i];
+                    i++;
+                    k++;
+                }
+                else{
+                    p=ar2[j];
+                    j++;
+                    k++;
+                }
+                if(k==n || k==n+1) ans+=p;
             }
-            sort(ar1,ar1+n);
-            sort(ar2,ar2+n);
-            return ar1[n-1]+ar2[0];
+            while(i<n){
+                p=ar1[i++];
+                k++;
+                if(k==n || k==n+1) ans+=p;
+            }
+            while(j<n){
+                p=ar2[j++];
+                k++;
+                if(k==n || k==n+1) ans+=p;
+            }
+            return ans;
     }
 };
 
