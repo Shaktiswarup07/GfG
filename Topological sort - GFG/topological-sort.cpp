@@ -19,6 +19,7 @@ class Solution
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    // code here
+	   /*
 	    vector<int> topo;
 	    stack<int>st;
 	    vector<bool>vis(V,0);
@@ -30,6 +31,28 @@ class Solution
 	    while(!st.empty()){
 	        topo.push_back(st.top());
 	        st.pop();
+	    }
+	    return topo;
+	    */
+	    vector<int>topo;
+	    vector<int>indegree(V,0);
+	    for(int i = 0 ; i < V ; i++){
+	        for(int j = 0 ; j < adj[i].size() ; j++){
+	            indegree[adj[i][j]]++;
+	        }
+	    }
+	    queue<int>q;
+	    for(int i = 0 ; i < V ; i++){
+	        if(indegree[i]==0) q.push(i);
+	    }
+	    while(!q.empty()){
+	        int x=q.front();
+	        topo.push_back(x);
+	        q.pop();
+	        for(int i = 0 ; i < adj[x].size() ; i++){
+	            indegree[adj[x][i]]--;
+	            if(indegree[adj[x][i]]==0) q.push(adj[x][i]);
+	        }
 	    }
 	    return topo;
 	}
