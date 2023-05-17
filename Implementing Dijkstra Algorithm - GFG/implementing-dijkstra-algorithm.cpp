@@ -11,6 +11,34 @@ class Solution
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         // Code here
+        
+        // USING SETS
+        set<pair<int,int>>st;
+        vector<int>dist(V,1e9);
+        st.insert({0,S});
+        dist[S]=0;
+        while(!st.empty()){
+            auto p=*(st.begin());
+            
+            int dis=p.first;
+            int k=p.second;
+            st.erase(p);
+            for(int i = 0 ; i < adj[k].size() ; i++){
+                if(dis+adj[k][i][1]<dist[adj[k][i][0]]){
+                    if(dist[adj[k][i][0]]!=1e9) 
+                    st.erase({dist[adj[k][i][0]],adj[k][i][0]});
+                    
+                    dist[adj[k][i][0]]=dis+adj[k][i][1];
+                    st.insert({dist[adj[k][i][0]],adj[k][i][0]});
+                }
+            }
+        }
+        return dist;
+        
+        /*
+        
+        USING PRIORITY QUEUE :
+        
         //create min heap
         priority_queue <pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > minH;
         minH.push({0,S});
@@ -32,6 +60,7 @@ class Solution
             }
         }
         return dist;
+        */
     }
 };
 
