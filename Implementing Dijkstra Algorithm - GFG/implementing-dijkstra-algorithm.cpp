@@ -12,8 +12,7 @@ class Solution
     {
         // Code here
         //create min heap
-        // priority_queue <pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > minH;
-        queue<pair<int,int>>minH;
+        priority_queue <pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > minH;
         minH.push({0,S});
         //create dist array;
         vector<int> dist(V);
@@ -21,7 +20,7 @@ class Solution
         dist[S]=0;
         
         while(!minH.empty()){
-            pair<int,int> v=minH.front();
+            pair<int,int> v=minH.top();
             int k=v.second;
             int dis=v.first;
             minH.pop();
