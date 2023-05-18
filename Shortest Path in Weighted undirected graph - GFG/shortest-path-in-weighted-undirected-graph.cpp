@@ -7,8 +7,7 @@ class Solution {
   public:
     vector<int> shortestPath(int n, int m, vector<vector<int>>& edges) {
         // Code here
-        // queue<pair<pair<int,int>,vector<int>>q;
-        // priority_queue<>q;
+        /*
         vector<vector<int>>adj[n+1];
         for(int i = 0 ; i < edges.size() ; i++){
             adj[edges[i][0]].push_back({edges[i][1],edges[i][2]});
@@ -19,9 +18,7 @@ class Solution {
         pq.push({0,{1,{1}}});
         vector<int>dist(n+1,INT_MAX);
         dist[1]=0;
-        // vector<int>ans;
         while(!pq.empty()){
-            // for(int t = 0 ; t < sz ; t++){
                 pair<int,pair<int,vector<int>>> ki=pq.top();
                 pq.pop();
                 int dis=ki.first;
@@ -31,9 +28,6 @@ class Solution {
                 
                 if(k==n) return vec;
                 
-                // cout<<"printing vector : "<<endl;
-                // for(auto i:vec) cout<<i<<" ";
-                // cout<<endl;
                 
                 for(int i = 0 ; i < adj[k].size() ; i++){
                     
@@ -45,14 +39,51 @@ class Solution {
                     pq.push({dis+adj[k][i][1],{adj[k][i][0],vy}});
                     
                     vy.pop_back();
-                    // if(k==n) {ans=vec;cout<<"hi";}
                   }
                 }
-            // }
         }
         return {-1};
+        */
         
-        
+        //ANOTHER APPROACH
+            priority_queue <pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+            vector<vector<int>>adj[n+1];
+            for(int i = 0 ; i < edges.size() ; i++){
+                adj[edges[i][0]].push_back({edges[i][1],edges[i][2]});
+                adj[edges[i][1]].push_back({edges[i][0],edges[i][2]});
+            }
+            
+            pq.push({0,1});
+            vector<int>parent(n+1);
+            vector<int>dist(n+1,INT_MAX);
+            for(int i = 0 ; i <=n ; i++) parent[i]=i;
+            dist[1]=0;
+            // for(auto i:parent) cout<<i<<" ";
+            // cout<<endl;
+            while(!pq.empty()){
+                auto x=pq.top();
+                pq.pop();
+                int dis=x.first;
+                int k=x.second;
+                for(int i = 0 ; i < adj[k].size() ; i++){
+                    if(dis+adj[k][i][1]<dist[adj[k][i][0]]){
+                        dist[adj[k][i][0]]=dis+adj[k][i][1];
+                        pq.push({dist[adj[k][i][0]],adj[k][i][0]});
+                        parent[adj[k][i][0]]=k;
+                    }
+                }
+            }
+            if(dist[n]==INT_MAX) return {-1};
+            vector<int>ans;
+            int node=n;
+            while(parent[node]!=node){
+                ans.push_back(node);
+                node=parent[node];
+            }
+            ans.push_back(1);
+            reverse(ans.begin(),ans.end());
+            return ans;
+            
     }
 };
 
