@@ -10,6 +10,7 @@ using namespace std;
 
 class Solution {
   public:
+  /*
     int bfs(int src, int tar, vector<int>adj[],int m,int n){
         vector<bool>vis(m*n,0);
         queue<int>q;
@@ -33,9 +34,11 @@ class Solution {
         }
         return -1;
     }
+    */
     int shortestPath(vector<vector<int>> &grid, pair<int, int> source,
                      pair<int, int> destination) {
         // code here
+        /*
         int n=grid.size();
         int m=grid[0].size();
         vector<int>adj[n*m];
@@ -52,7 +55,6 @@ class Solution {
                 c++;
             }
         }
-        // cout<<src<<" "<<target<<endl;
         for(int i = 0 ; i < n ; i++){
             for(int j = 0 ; j < m ; j++){
                 if(grid[i][j]==1){
@@ -63,15 +65,41 @@ class Solution {
                 }
             }
         }
-        // for(int i = 0 ; i < n*m ; i++){
-        //     cout<<i<<"-->";
-        //     for(int j = 0; j < adj[i].size() ; j++){
-        //         cout<<adj[i][j]<<" ";
-        //     }cout<<endl;
-        // }
+        
         int ans=0;
         ans=bfs(src,target,adj,m,n);
         return ans;
+        */
+        //ANOTHER APPROACH
+        int n=grid.size();
+        int m=grid[0].size();
+        int si=source.first,sj=source.second;
+        int ti=destination.first,tj=destination.second;
+        vector<vector<int>> dist(grid.size(),vector<int>(grid[0].size(),INT_MAX));
+        dist[si][sj]=0;
+        queue<pair<int,pair<int,int>>>q;
+        q.push({0,{si,sj}});
+        
+        int a[4]={-1,1,0,0};
+        int b[4]={0,0,-1,1};
+        while(!q.empty()){
+            auto x=q.front();
+            q.pop();
+            int dis=x.first;
+            int i1=x.second.first;
+            int j1=x.second.second;
+            for(int i = 0 ; i < 4 ; i++){
+                int nrow=i1+a[i];
+                int ncol=j1+b[i];
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]==1 && dis+1<dist[nrow][ncol]){
+                    dist[nrow][ncol]=dis+1;
+                    q.push({dis+1,{nrow,ncol}});
+                }
+            }
+            if(dist[ti][tj]!=INT_MAX) return dist[ti][tj];
+            
+        }
+        return -1;
     }
 };
 
