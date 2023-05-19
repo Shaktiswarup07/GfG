@@ -24,15 +24,33 @@ class Solution {
     }
     int CheapestFLight(int n, vector<vector<int>>& flights, int src, int dst, int k)  {
         // Code here
-        vector<pair<int,int>>adj[n];
+        vector<vector<int>>adj[n];
         for(int i = 0 ; i < flights.size() ; i++){
             adj[flights[i][0]].push_back({flights[i][1],flights[i][2]});
         }
-        vector<bool>vis(n,0);
-        int fare=INT_MAX;
-        Solve(src,dst,k,fare,0,adj,vis);
-        if(fare==INT_MAX) return -1;
-        else return fare;
+        vector<int>dist(n,INT_MAX);
+        dist[src]=0;
+        queue<pair<int,pair<int,int>>>q;
+        q.push({0,{src,0}});
+        //{stops,{node,dist}}
+        
+        while(!q.empty()){
+            auto p=q.front();
+            q.pop();
+            int stops=p.first;
+            int node=p.second.first;
+            int dis=p.second.second;
+            if(stops>k) continue;
+            for(int i = 0 ; i < adj[node].size() ; i++){
+                if(dis+adj[node][i][1]<dist[adj[node][i][0]]){
+                    dist[adj[node][i][0]]=dis+adj[node][i][1];
+                    q.push({stops+1,{adj[node][i][0],dis+adj[node][i][1]}});
+                }
+            }
+        }
+        
+        if(dist[dst]==INT_MAX) return -1;
+        else return dist[dst];
     }
 };
 
