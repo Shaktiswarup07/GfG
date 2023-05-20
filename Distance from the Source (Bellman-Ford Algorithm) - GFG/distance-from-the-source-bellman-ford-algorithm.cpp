@@ -16,7 +16,7 @@ class Solution {
         // Code here
         vector<int>dist(V,1e8);
         dist[S]=0;
-        for(int i = 0 ; i < V ; i++){
+        for(int i = 1 ; i < V ; i++){
             for(int j = 0 ; j < edges.size() ; j++){
                 int iNode=edges[j][0];
                 int fNode=edges[j][1];
