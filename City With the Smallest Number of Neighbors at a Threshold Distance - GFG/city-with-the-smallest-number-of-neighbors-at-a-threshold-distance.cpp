@@ -8,45 +8,44 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    int findCity(int N, int M, vector<vector<int>>& edges,
-                 int distanceThreshold) {
-        vector<vector<int>>matrix(N,vector<int>(N,1e9));
-        for(int i = 0 ; i < edges.size() ; i++){
-            // for(int j = 0 ; j < edges[0].size() ; j++){
-                matrix[edges[i][0]][edges[i][1]]=edges[i][2];
-                matrix[edges[i][1]][edges[i][0]]=edges[i][2];
-            // }
+    int findCity(int n, int m, vector<vector<int>>& edges,int distanceThreshold) {
+        //USING DIJKSTRA
+        vector<vector<int>> adj[n];
+        for(int i=0;i<edges.size() ; i++){
+            adj[edges[i][0]].push_back({edges[i][1],edges[i][2]});
+            adj[edges[i][1]].push_back({edges[i][0],edges[i][2]});
         }
-        int n=matrix.size(),m=matrix[0].size();
-	    for(int i = 0 ; i < n ; i++){
-	        for(int j = 0 ; j < m ; j++){
-	            if(i==j) matrix[i][j]=0;
-	        }
-	    }
-	    for(int k = 0 ; k < n ; k++){
-	        for(int i = 0 ; i < n ; i++){
-	            for(int j = 0 ; j < m ; j++){
-	                matrix[i][j]=min(matrix[i][j],matrix[i][k]+matrix[k][j]);
-	            }
-	        }
-	    }
-	    int mini=INT_MAX;
-	    int ans=0;
-	    for(int i = 0 ; i < n ; i++){
-	        int cnt=0;
-	        for(int j = 0 ; j < m ; j++){
-	           // if(matrix[i][j]==1e9) matrix[i][j]=-1;
-	           //cout<<matrix[i][j]<<" ";
-	           if(matrix[i][j]<=distanceThreshold) cnt++;
-	        }
-	        if(cnt<=mini){
-	            mini=cnt;
-	            ans=i;
-	        }
-	    }
-	    return ans;
-	    
-	    
+        int ans=-1,mini=INT_MAX;
+        for(int src=0;src<n ; src++){
+            priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+            vector<int>dist(n,INT_MAX);
+            dist[src]=0;
+            pq.push({0,src});
+            while(!pq.empty()){
+            auto x=pq.top();
+            int node=x.second;
+            int dis=x.first;
+            pq.pop();
+            for(int i = 0 ; i < adj[node].size() ; i++){
+                if(dis+adj[node][i][1]<dist[adj[node][i][0]]){
+                    dist[adj[node][i][0]]=dis+adj[node][i][1];
+                    pq.push({dis+adj[node][i][1],adj[node][i][0]});
+                    }
+                }
+            }
+            int cnt=0;
+            for(int i = 0; i < n ; i++){
+                if(dist[i]<=distanceThreshold) cnt++;
+            }
+            if(cnt<=mini){
+                mini=cnt;
+                ans=src;
+            }
+        }
+        return ans;
+        
+        
+        
     }
 };
 
