@@ -5,39 +5,85 @@ using namespace std;
 
 // } Driver Code Ends
 //User function Template for C++
-
-class Solution {
-  public:
-    void dfs(int node, int V, vector<int> adj[],  vector<bool> &vis)
+class DisjointSet
 {
-    // dfss.push_back(node);
-    vis[node] = 1;
-    for (int i = 0; i < adj[node].size(); i++)
+    vector<int> rank, parent, size;
+
+    public:
+    DisjointSet(int n)
     {
-        if (!vis[adj[node][i]])
+        rank.resize(n + 1, 0);
+        parent.resize(n + 1);
+        size.resize(n + 1);
+        for (int i = 0; i <= n; i++)
         {
-            dfs(adj[node][i], V, adj, vis);
+            parent[i] = i;
+            size[i] = 1;
         }
     }
-}
+    int findUParent(int node)
+    {
+        if (node == parent[node])
+            return node;
+        else
+            return parent[node] = findUParent(parent[node]);
+    }
+    void unionByRank(int u, int v)
+    {
+        int ulp_u = findUParent(u);
+        int ulp_v = findUParent(v);
+        if (ulp_u == ulp_v)
+        {
+            return;
+        }
+        if (rank[ulp_u] < rank[ulp_v])
+        {
+            parent[ulp_u] = ulp_v;
+        }
+        else if (ulp_u > ulp_v)
+        {
+            parent[ulp_v] = ulp_u;
+        }
+        else
+        {
+            parent[ulp_v] = ulp_u;
+            rank[ulp_u]++;
+        }
+    }
+    void unionBySize(int u, int v)
+    {
+        int ulp_u = findUParent(u);
+        int ulp_v = findUParent(v);
+        if (ulp_u == ulp_v)
+        {
+            return;
+        }
+        if (size[ulp_u] < size[ulp_v])
+        {
+            parent[ulp_u] = ulp_v;
+            size[ulp_v] += size[ulp_u];
+        }
+        else
+        {
+            parent[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v];
+        }
+    }
+};
+class Solution {
+  public:
     int numProvinces(vector<vector<int>> adj, int V) {
-        // code here
-        vector<int>ad[V];
-        for(int i = 0 ; i < V ; i++){
-            for(int j = 0 ; j < V ; j++){
-                if(adj[i][j]==1 && i!=j){
-                    ad[i].push_back(j);
+        DisjointSet ds(V);
+        for(int i = 0 ; i < adj.size() ; i++){
+            for(int j =0 ; j < adj[0].size();j++){
+                if(adj[i][j]==1){
+                    ds.unionByRank(i+1,j+1);
                 }
             }
         }
         int cnt=0;
-        vector<bool>vis(V,0);
-        for(int i=0 ; i< V ; i++){
-            
-            if(vis[i]==0){
-                cnt++;
-                dfs(i,V,ad,vis);
-            }
+        for(int i=1;i<=V;i++){
+            if(i==ds.findUParent(i)) cnt++;
         }
         return cnt;
     }
