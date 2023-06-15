@@ -7,21 +7,33 @@ using namespace std;
 class Solution
 {
     public:
-    int Solve(int W, int n, int wt[], int val[], vector<vector<int>>&dp){
-        if(n==0 || W==0) return 0;
+    // int Solve(int W, int n, int wt[], int val[], vector<vector<int>>&dp){
+    //     if(n==0 || W==0) return 0;
         
-        if(dp[W][n]!=-1) return dp[W][n];
-        int ntake=Solve(W,n-1,wt,val,dp);
-        int take=INT_MIN;
-        if(W>=wt[n-1]) take=val[n-1]+Solve(W-wt[n-1],n-1,wt,val,dp);
-        return dp[W][n]=max(take,ntake);
-    }
+    //     if(dp[W][n]!=-1) return dp[W][n];
+    //     int ntake=Solve(W,n-1,wt,val,dp);
+    //     int take=INT_MIN;
+    //     if(W>=wt[n-1]) take=val[n-1]+Solve(W-wt[n-1],n-1,wt,val,dp);
+    //     return dp[W][n]=max(take,ntake);
+    // }
     //Function to return max value that can be put in knapsack of capacity W.
     int knapSack(int W, int wt[], int val[], int n) 
     { 
        // Your code here
-       vector<vector<int>>dp(W+1,vector<int>(n+1,-1));
-       return Solve(W,n,wt,val,dp);
+       vector<vector<int>>dp(W+1,vector<int>(n+1,0));
+       for(int i = 0 ; i <=W ; i++){
+           for(int j = 0 ; j <= n ; j++){
+               if(i==0 || j==0) dp[i][j]=0;
+               else{
+                   int ntake=dp[i][j-1];
+                   int take=INT_MIN;
+                   if(i>=wt[j-1]) take=val[j-1]+dp[i-wt[j-1]][j-1];
+                   dp[i][j]=max(ntake,take);
+               }
+           }
+       }
+       return dp[W][n];
+    //   return Solve(W,n,wt,val,dp);
     }
 };
 
