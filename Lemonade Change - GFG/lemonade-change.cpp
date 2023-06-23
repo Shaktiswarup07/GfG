@@ -23,7 +23,7 @@ class Solution {
                 }
             }
             else if(bills[i]==20){
-                if(mp[5]>=1 && mp[10]>=1){
+                 if(mp[5]>=1 && mp[10]>=1){
                     mp[5]--;mp[10]--;
                 }
                 else if(mp[5]>=3){
