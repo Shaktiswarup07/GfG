@@ -20,16 +20,18 @@ public:
     int nCr(int n, int r){
         // code here
         if(n<r) return 0;
-        vector<vector<int>>dp(n+1,vector<int>(r+1,0));
+        // vector<vector<int>>dp(n+1,vector<int>(r+1,0));
+        vector<int>prev(r+1,0),cur(r+1,0);
         for(int i = 1 ; i <= n ; i++){
             for(int j = 0 ; j<=r ; j++){
-                if(i==j || j==0) dp[i][j]=1;
+                if(i==j || j==0) cur[j]=1;
                 else{
-                    dp[i][j]=(dp[i-1][j-1]%M + dp[i-1][j]%M)%M;
+                    cur[j]=(prev[j-1]%M + prev[j]%M)%M;
                 }
             }
+            prev=cur;
         }
-        return dp[n][r];
+        return prev[r];
     }
 };
 
