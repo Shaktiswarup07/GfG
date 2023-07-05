@@ -44,8 +44,26 @@ class Solution {
 }
     int stockBuyAndSell(int n, vector<int> &prices) {
         // code here
-        vector<vector<int>>dp(prices.size(),vector<int>(2,-1));
-        return Solve(0,1,prices,dp);
+        // vector<vector<int>>dp(prices.size()+1,vector<int>(2,0));
+        vector<int>prev(2,0),cur(2,0);
+        for(int idx = n ; idx>=0 ; idx--){
+            for(int buy=0;buy<2 ; buy++){
+                if(idx==n) cur[buy]=0;
+                else{
+                    int maxi=INT_MIN;
+                    if(buy)
+                    maxi=max(maxi,max(-prices[idx]+prev[0],prev[1]));
+                    else{
+                        maxi=max(maxi,max(prices[idx]+prev[1],prev[0]));
+                    }
+                    cur[buy]=maxi;
+                }
+            }
+            prev=cur;
+        }
+        
+        return cur[1];
+        // return Solve(0,1,prices,dp);
     }
 };
 
