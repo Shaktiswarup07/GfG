@@ -14,20 +14,22 @@ class Solution
     public:
     int lcs(string &x, string &y){
         int n=x.size(),m=y.size();
-        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        // vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        vector<int>prev(m+1,0),cur(m+1,0);
         for(int i = 0 ; i <=n ; i++){
             for(int j = 0 ; j <=m ; j++){
-                if(i==0 || j==0) dp[i][j]=0;
+                if(i==0 || j==0) cur[j]=0;
                 else{
                     if(x[i-1]==y[j-1]){
-                        dp[i][j]=1+dp[i-1][j-1];
+                        cur[j]=1+prev[j-1];
                     }
                     else
-                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                    cur[j]=max(prev[j],cur[j-1]);
                 }
             }
+            prev=cur;
         }
-        return dp[n][m];
+        return cur[m];
     }
     //Function to find length of shortest common supersequence of two strings.
     int shortestCommonSupersequence(string X, string Y, int m, int n)
