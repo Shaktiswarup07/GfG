@@ -6,20 +6,30 @@ using namespace std;
 class Solution
 {
   public:
+    int Solve(int temp, int target, vector<int>&dp){
+        if(temp==target) return 0;
+        if(dp[temp]!=-1) return dp[temp];
+        int ans=INT_MAX;
+        if(temp+1<=target) ans=min(ans,1+Solve(temp+1,target,dp));
+        if(temp*2<=target) ans=min(ans,1+Solve(temp*2,target,dp));
+        return dp[temp]=ans;
+    }
     int minOperation(int n)
     {
         //code here.
-        int ops=0;
-        while(n){
-            if(n%2==0){
-                n/=2;
-            }
-            else{
-                n-=1;
-            }
-            ops++;
-        }
-        return ops;
+        vector<int>dp(n+1,-1);
+        return Solve(1,n,dp)+1;
+        // int ops=0;
+        // while(n){
+        //     if(n%2==0){
+        //         n/=2;
+        //     }
+        //     else{
+        //         n-=1;
+        //     }
+        //     ops++;
+        // }
+        // return ops;
     }
 };
 
