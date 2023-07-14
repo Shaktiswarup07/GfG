@@ -13,19 +13,24 @@ class Solution{
     int catchThieves(char arr[], int n, int k) 
     {
         // Code here 
-        int cnt=0;
+        vector<int>p,t;
         for(int i = 0 ; i < n ; i++){
-            if(arr[i]=='P'){
-                int j;
-                if(i-k>=0) j=i-k;
-                else j=0;
-                for(  ; j<=i+k&&j<n ; j++){
-                    if(arr[j]=='T'){
-                        cnt++;
-                        arr[j]='X';
-                        break;
-                    }
-                }
+            if(arr[i]=='P') p.push_back(i);
+            else t.push_back(i);
+        }
+        int i=0,j=0;
+        int cnt=0;
+        while(j<t.size() && i<p.size()){
+            if(t[j]>=p[i]-k && t[j]<=p[i]+k){
+                j++;
+                i++;
+                cnt++;
+            }
+            else if(p[i]<t[j]){
+                i++;
+            }
+            else{
+                j++;
             }
         }
         return cnt;
