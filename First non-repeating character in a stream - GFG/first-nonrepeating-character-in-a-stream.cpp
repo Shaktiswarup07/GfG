@@ -12,19 +12,18 @@ class Solution {
 		    string s;
 		    for(int i = 0 ; i < A.size() ; i++){
 		        mp[A[i]]++;
-		        if(q.size() && mp[q.front()]!=1){
+		        //if the front of the queue is repeated again pop while mp[q.front] !=1
+		        if(q.size() && mp[q.front()]==2){
 		            while( q.size() && mp[q.front()]!=1){
 		                q.pop();
 		            }
 		        }
-		      //  else{
 		            if(mp[A[i]]==1)
 		            q.push(A[i]);
 		            if(q.size())
 		            s+=q.front();
 		            else
 		            s+='#';
-		      //  }
 		        
 		    }
 		    return s;
