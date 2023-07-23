@@ -99,7 +99,7 @@ class Solution {
         }
         int lh=Solve(root->left,maxi);
         int rh=Solve(root->right,maxi);
-        maxi=max(maxi,lh+rh);
+        maxi=max(maxi,lh+rh+1);
         return 1+max(lh,rh);
     }
     // Function to return the diameter of a Binary Tree.
@@ -108,7 +108,7 @@ class Solution {
         int maxi=0;
         Solve(root,maxi);
         
-        return maxi+1;
+        return maxi;
     }
 };
 
