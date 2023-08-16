@@ -32,14 +32,14 @@ class Solution
             count++;
             temp=temp->next;
         }
-        map<int,Node*>m;
-        temp=head;
-        count=0;
-        while(temp){
-            m[count]=temp;
-            count++;
-            temp=temp->next;
-        }
+        // map<int,Node*>m;
+        // temp=head;
+        // count=0;
+        // while(temp){
+        //     m[count]=temp;
+        //     count++;
+        //     temp=temp->next;
+        // }
         
         Node* temp2=head;
         map<int,int>m2;
@@ -71,7 +71,7 @@ class Solution
             count++;
             temp=temp->next;
         }
-        // map<int,Node*>m;
+        map<int,Node*>m;
         temp=chead;
         count=0;
         while(temp){
@@ -85,7 +85,6 @@ class Solution
         while(temp){
             if(m2.find(cnt)!=m2.end()){
                 temp->arb=m[m2[cnt]];
-                // cout<<temp->data<<" "<<temp->arb->data<<endl;
             }
             cnt++;
             temp=temp->next;
