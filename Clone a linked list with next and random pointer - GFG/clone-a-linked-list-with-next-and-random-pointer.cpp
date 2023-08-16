@@ -24,64 +24,21 @@ class Solution
     Node *copyList(Node *head)
     {
         //Write your code here
-        unordered_map<Node*,int>mp;
-        Node* temp=head;
-        int count=0;
-        while(temp){
-            mp[temp]=count;
-            count++;
-            temp=temp->next;
+        map<Node *,Node *>mp;
+        Node *p=head;
+        while(p!=NULL){
+            Node *t=new Node(0);
+            t->data=p->data;
+            mp[p]=t;
+            p=p->next;
         }
-        
-        Node* temp2=head;
-        unordered_map<int,int>m2;
-        // temp=head;
-        count=0;
-        while(temp2){
-            if(temp2->arb){
-                m2[count]=mp[temp2->arb];
-            }
-            count++;
-            temp2=temp2->next;
+        p=head;
+        while(p){
+            mp[p]->next=mp[p->next];
+            mp[p]->arb=mp[p->arb];
+            p=p->next;
         }
-        // cout<<m2[0]<<" "<<m2[2]<<endl;
-        Node *chead=new Node(head->data);
-        Node *t = chead;
-        temp2=head->next;
-        while(temp2){
-            Node* t1=new Node(temp2->data);
-            t->next=t1;
-            t=t1;
-            temp2=temp2->next;
-        }
-        
-        // map<Node*,int>mp;
-         temp=chead;
-         count=0;
-        while(temp){
-            mp[temp]=count;
-            count++;
-            temp=temp->next;
-        }
-        unordered_map<int,Node*>m;
-        temp=chead;
-        count=0;
-        while(temp){
-            m[count]=temp;
-            count++;
-            temp=temp->next;
-        }
-        
-        temp=chead;
-        int cnt=0;
-        while(temp){
-            if(m2.find(cnt)!=m2.end()){
-                temp->arb=m[m2[cnt]];
-            }
-            cnt++;
-            temp=temp->next;
-        }
-        return chead;
+        return mp[head];
         
         
     }
