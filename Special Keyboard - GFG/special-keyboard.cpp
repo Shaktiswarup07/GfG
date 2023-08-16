@@ -12,11 +12,11 @@ public:
     long long int optimalKeys(int N){
         // code here
         
-        if(N<=6) return N;
+        if(N<=4) return N;
         vector<int>dp(N+1,0);
-        for(int i = 1 ; i <= 6 ; i++) dp[i]=i;
+        for(int i = 1 ; i <= 4 ; i++) dp[i]=i;
         
-        for(int i = 7 ; i <=N ; i++){
+        for(int i = 5 ; i <=N ; i++){
             int maxi=INT_MIN;
             for(int j = 2 ; j<=i-2;j++){
                 maxi=max(maxi,dp[i-j-1]*j);
