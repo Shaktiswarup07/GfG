@@ -24,7 +24,7 @@ class Solution
     Node *copyList(Node *head)
     {
         //Write your code here
-        map<Node*,int>mp;
+        unordered_map<Node*,int>mp;
         Node* temp=head;
         int count=0;
         while(temp){
@@ -32,17 +32,9 @@ class Solution
             count++;
             temp=temp->next;
         }
-        // map<int,Node*>m;
-        // temp=head;
-        // count=0;
-        // while(temp){
-        //     m[count]=temp;
-        //     count++;
-        //     temp=temp->next;
-        // }
         
         Node* temp2=head;
-        map<int,int>m2;
+        unordered_map<int,int>m2;
         // temp=head;
         count=0;
         while(temp2){
@@ -71,7 +63,7 @@ class Solution
             count++;
             temp=temp->next;
         }
-        map<int,Node*>m;
+        unordered_map<int,Node*>m;
         temp=chead;
         count=0;
         while(temp){
